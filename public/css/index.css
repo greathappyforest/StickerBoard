@@ -112,7 +112,7 @@ nav ul li a:hover {
 }
 
 a.active {
-    border-bottom: 2px solid #ecf0f1;
+    border-bottom: 2 px solid #ecf0f1;
 }
 
 
@@ -173,9 +173,9 @@ button::-moz-focus-inner {
 .btn-nav {
     display: block;
     width: 50px;
-    position: fixed;
-    left: 20px;
-    margin: 8% auto;
+    position: relative;
+    left: 18px;
+    margin-top: 8%;
     -webkit-transition: all 1s ease;
     -moz-transition: all 1s ease;
     -ms-transition: all 1s ease;
@@ -233,10 +233,11 @@ button::-moz-focus-inner {
     position: absolute;
     left: -50%;
     top: 0;
-    background: #CD5334;
+    background: #34515E;
     height: 80%;
     width: 100px;
     margin-top: 7%;
+    opacity: 0.8;
 }
 
 .nav-list {
@@ -245,8 +246,6 @@ button::-moz-focus-inner {
     top: 50%;
     text-align: center;
     position: relative;
-    margin: 0;
-    padding: 0;
     -webkit-transform: translateY(-50%);
     -moz-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
@@ -255,10 +254,8 @@ button::-moz-focus-inner {
 }
 
 .list-item {
-    margin: 0px auto;
     border: 2px solid #fff;
-    width: 50px;
-    padding: 15px;
+    width: 40px;
     -webkit-transition: all 1s ease;
     -moz-transition: all 1s ease;
     -ms-transition: all 1s ease;
@@ -290,10 +287,7 @@ button::-moz-focus-inner {
 }
 
 .list-item a {
-    color: #fff;
-    font-size: 1.7em;
     display: block;
-    width: 100%;
 }
 
 .fa {
@@ -399,4 +393,9 @@ h1 {
     top: 150px;
     left: 250px;
     color: #fff;
+}
+
+.colorlabel {
+    display: block;
+    font-size: 1.7em;
 }
