@@ -426,7 +426,6 @@ h1 {
 
 /*-------------------sticker-----------------------*/
 
-
 .dashboard hr{
   margin-top: 0px !important;
   margin-bottom: 0px !important;
@@ -464,6 +463,7 @@ h1 {
 }
 
 .dashboard ul li a{
+  word-wrap: break-word; 
   -webkit-transform: rotate(-6deg);
   -o-transform: rotate(-6deg);
   -moz-transform:rotate(-6deg);
@@ -504,6 +504,11 @@ h1 {
 
 
 
+.dashboard input{
+float:none;
+
+}
+
 /*.dashboard ol{text-align:center;}
 .dashboard ol li{display:inline;padding-right:1em;}
 .dashboard ol li a{color:#fff;}
@@ -527,3 +532,14 @@ h1 {
   font-size:180%;
   margin-bottom: 1px !important;
 }*/
+
+
+
+
+
+
+
+
+
+
+
