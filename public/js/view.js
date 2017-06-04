@@ -161,12 +161,12 @@ $(document).ready(function() {
     $(this).click(function(event) {
         var target = $(event.target);
         var inputId;
-        var aId;
-        var H2Id;
+        var aId = [];
+        var H2Id = [];
         var tagId = [];
         var contentId = [];
 
-        
+
         var inputContentText = ($(":text").val());
         var allIds = $.unique($('[id]').map(function() {
                 return this.id;
@@ -179,10 +179,10 @@ $(document).ready(function() {
                 inputId = $((String(allIds[i])).match(RegInput))[0];
             }
             if ($((String(allIds[i])).match(RegStId))[0] != undefined) {
-                aId = $((String(allIds[i])).match(RegStId))[0];
+                aId.push($((String(allIds[i])).match(RegStId))[0]);
             }
             if ($((String(allIds[i])).match(RegH2))[0] != undefined) {
-                H2Id = $((String(allIds[i])).match(RegH2))[0];
+                H2Id.push($((String(allIds[i])).match(RegH2))[0]);
             }
             if ($((String(allIds[i])).match(RegTag))[0] != undefined) {
                 tagId.push($((String(allIds[i])).match(RegTag))[0]);
@@ -197,33 +197,33 @@ $(document).ready(function() {
         // console.log('H2Id',H2Id);
         // console.log('tagId',tagId);
         // console.log('contentId',contentId);
-               
+
         if (target.is('input')) {
             return;
         } else if ((target.is('a') || target.is('h2')) && (inputId == undefined)) {
             if (target.css('height') > '15em') {
-                if(target.is('a')){
-                document.getElementById(event.target.id).innerHTML += " <hr /><input style='width: 25em;' name='contentInput' class= '.contains input' id=inputContent" + random13dig() + "    type='text' placeholder='Add notes..'> "
+                if (target.is('a')) {
+                    document.getElementById(event.target.id).innerHTML += " <hr /><input style='width: 25em;' name='contentInput' class= '.contains input' id=inputContent" + random13dig() + "    type='text' placeholder='Add notes..'> "
+                }
+                if (target.is('h2')) {
+                    document.getElementById(event.target.id).innerHTML += " <input style='width: 5em;'  name='contentInput' class= '.contains input' id=inputContent" + random13dig() + "    type='text' placeholder='Add Tag..'value=> "
+                }
             }
-                if(target.is('h2')){
-               document.getElementById(event.target.id).innerHTML += " <input style='width: 5em;'  name='contentInput' class= '.contains input' id=inputContent" + random13dig() + "    type='text' placeholder='Add Tag..'value=> "
-            }
-        }
-        } else if( (target.is('contains'))  && (inputId == undefined) ) {
+        } else if ((target.is('contains')) && (inputId == undefined)) {
             if ((String(event.target.id)).match(RegTag) == event.target.id) {
 
 
-               var tagContent = $(event.target).text();
-               console.log('tagContent:',tagContent);
-               $(event.target).replaceWith(" <input style='width: 5em;'  name='contentInput' class= '.contains input' id=inputContent" + random13dig() + "    type='text' value='"+tagContent+"''> ");
+                var tagContent = $(event.target).text();
+                console.log('tagContent:', tagContent);
+                $(event.target).replaceWith(" <input style='width: 5em;'  name='contentInput' class= '.contains input' id=inputContent" + random13dig() + "    type='text' value='" + tagContent + "''> ");
 
             }
             if ((String(event.target.id)).match(RegSp) == event.target.id) {
                 var noteContent = $(event.target).text();
-               $(event.target).replaceWith(" <input style='width: 25em;'  name='contentInput' class= '.contains input' id=inputContent" + random13dig() + "    type='text' value='"+noteContent+"''> ");
+                $(event.target).replaceWith(" <input style='width: 25em;'  name='contentInput' class= '.contains input' id=inputContent" + random13dig() + "    type='text' value='" + noteContent + "''> ");
             }
         } else {
-         
+
             if (inputContentText == '') {
                 $('#' + inputId).prev().remove();
                 $('#' + inputId).remove();
@@ -233,11 +233,11 @@ $(document).ready(function() {
                     $('#' + inputId).replaceWith("<contains class='stickerPara' id=stickerpara" + random13dig() + "> " + inputContentText + "</contains> ");
                 }
                 if (dad.is('h2')) {
-                                                     console.log('inputContentText:',inputContentText);
+                    console.log('inputContentText:', inputContentText);
                     $('#' + inputId).replaceWith("<contains class='tag' id=tag" + random13dig() + "> " + inputContentText + " </contains> ");
                 }
             }
-        
+
         }
     });
 });
@@ -251,7 +251,134 @@ $(document).ready(function() {
 //!!!!!    anywhere find page all ids
 //!!!!!   console.log($.unique($('[id]').map(function() { return this.id; }).get()));  
 
-//
+
+
+var str = '';
+$(document).ready(function() {
+    $('body').keypress(function(event) {
+        var inputId;
+        var aId = [];
+        var H2Id = [];
+        var tagId = [];
+        var contentId = [];
+
+
+        var inputContentText = ($(":text").val());
+        var allIds = $.unique($('[id]').map(function() {
+                return this.id;
+            }).get())
+            // console.log(event.target);
+            // $('#'+$((String(allIds[i])).match(RegInput))[0])  -------obj
+        for (var i = 0; i < allIds.length; i++) {
+
+            if ($((String(allIds[i])).match(RegInput))[0] != undefined) {
+                inputId = $((String(allIds[i])).match(RegInput))[0];
+            }
+            if ($((String(allIds[i])).match(RegStId))[0] != undefined) {
+                aId.push($((String(allIds[i])).match(RegStId))[0]);
+            }
+            if ($((String(allIds[i])).match(RegH2))[0] != undefined) {
+                H2Id.push($((String(allIds[i])).match(RegH2))[0]);
+            }
+            if ($((String(allIds[i])).match(RegTag))[0] != undefined) {
+                tagId.push($((String(allIds[i])).match(RegTag))[0]);
+            }
+            if ($((String(allIds[i])).match(RegSp))[0] != undefined) {
+                contentId.push($((String(allIds[i])).match(RegSp))[0]);
+            }
+        }
+
+
+        if ((event.which == 13)) {
+            if ((inputId != undefined)) {
+                if (inputContentText == '') {
+                    $('#' + inputId).prev().remove();
+                    $('#' + inputId).remove();
+                } else {
+                    var dad = $('#' + inputId).parent();
+                    if (dad.is('a')) {
+                        $('#' + inputId).replaceWith("<contains class='stickerPara' id=stickerpara" + random13dig() + "> " + inputContentText + "</contains> ");
+                    }
+                    if (dad.is('h2')) {
+                        //     console.log('inputContentText:',inputContentText);
+                        $('#' + inputId).replaceWith("<contains class='tag' id=tag" + random13dig() + "> " + inputContentText + " </contains> ");
+                    }
+                }
+            } else {
+                for (var i = 0; i < aId.length; i++) {
+
+                    if ($('#' + aId).css('height') > '15em')
+                        document.getElementById(aId).innerHTML += " <hr /><input style='width: 25em;' name='contentInput' class= '.contains input' id=inputContent" + random13dig() + "    type='text' placeholder='Add notes..'> "
+                }
+
+            }
+        } else {
+            //no focus on input any key also can input...
+            if ((inputId != undefined)) {
+                var key = String.fromCharCode(event.which);
+                $('#' + inputId).replaceWith(" <input style='width: 25em;'  name='contentInput' class= '.contains input' id=inputContent" + random13dig() + "    type='text' value='" + ($(":text").val()).concat(key) + "''> ");
+            }
+
+        }
+
+
+    });
+});
+
+
+var str2='';
+$(document).keydown(function(e) {
+    var inputId;
+    var aId = [];
+    var H2Id = [];
+    var tagId = [];
+    var contentId = [];
+
+
+    var inputContentText = ($(":text").val());
+    var allIds = $.unique($('[id]').map(function() {
+            return this.id;
+        }).get())
+        // console.log(event.target);
+        // $('#'+$((String(allIds[i])).match(RegInput))[0])  -------obj
+    for (var i = 0; i < allIds.length; i++) {
+
+        if ($((String(allIds[i])).match(RegInput))[0] != undefined) {
+            inputId = $((String(allIds[i])).match(RegInput))[0];
+        }
+        if ($((String(allIds[i])).match(RegStId))[0] != undefined) {
+            aId.push($((String(allIds[i])).match(RegStId))[0]);
+        }
+        if ($((String(allIds[i])).match(RegH2))[0] != undefined) {
+            H2Id.push($((String(allIds[i])).match(RegH2))[0]);
+        }
+        if ($((String(allIds[i])).match(RegTag))[0] != undefined) {
+            tagId.push($((String(allIds[i])).match(RegTag))[0]);
+        }
+        if ($((String(allIds[i])).match(RegSp))[0] != undefined) {
+            contentId.push($((String(allIds[i])).match(RegSp))[0]);
+        }
+    }
+
+
+    if ((inputId != undefined)) {
+        if (e.keyCode == 27) { // escape key maps to keycode `27`
+            $('#' + inputId).prev().remove();
+           $('#' + inputId).remove();
+        }
+
+        if (e.keyCode == 8) {
+        
+         $('#' + inputId).replaceWith(" <input style='width: 25em;'  name='contentInput' class= '.contains input' id=inputContent" + random13dig() + "    type='text' value='" + ($(":text").val()).slice(0, str.length-1) + "''> ");
+
+        }
+    }
+});
+
+
+
+
+
 //----------------------------------------------------------------------------------
 
 
@@ -299,4 +426,3 @@ $(window).load(function() {
 
 
 });
-
