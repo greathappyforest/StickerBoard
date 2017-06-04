@@ -521,6 +521,8 @@ float:none;
 
 
 .dashboard h2{
+  height:auto;
+  min-height:1.8em;
   font-size:100%!important; 
     margin-top: 1px !important;
   margin-bottom: 1px !important;
