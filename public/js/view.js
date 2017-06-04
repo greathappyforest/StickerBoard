@@ -58,7 +58,7 @@ function addNewSticker() {
         'time': timeNow
     });
 
-    $(".dashboardUl").append("<li><a id=stickerId" + random13dig() + " href='#'><h2 id=h" + random13dig() + "><contains class='tag' id=tag" + random13dig() +
+    $(".dashboardUl").append("<li><a id=stickerId" + random13dig() + " ><h2 id=h" + random13dig() + "><contains class='tag' id=tag" + random13dig() +
         ">tag1</contains> <contains class='tag' id=tag" + random13dig() + ">tag2</contains> </h2><hr color=#000000 /><contains class='stickerPara' id=stickerpara" + random13dig() +
         ">some note1</contains><hr /><contains class='stickerPara' id=stickerpara" + random13dig() + ">some note2</contains><hr /> </a></li>");
 }
@@ -197,7 +197,7 @@ $(document).ready(function() {
         // console.log('H2Id',H2Id);
         // console.log('tagId',tagId);
         // console.log('contentId',contentId);
-
+               
         if (target.is('input')) {
             return;
         } else if ((target.is('a') || target.is('h2')) && (inputId == undefined)) {
@@ -211,13 +211,16 @@ $(document).ready(function() {
         }
         } else if( (target.is('contains'))  && (inputId == undefined) ) {
             if ((String(event.target.id)).match(RegTag) == event.target.id) {
+
+
                var tagContent = $(event.target).text();
-               $(event.target).replaceWith(" <input style='width: 5em;'  name='contentInput' class= '.contains input' id=inputContent" + random13dig() + "    type='text' value="+tagContent+"> ");
+               console.log('tagContent:',tagContent);
+               $(event.target).replaceWith(" <input style='width: 5em;'  name='contentInput' class= '.contains input' id=inputContent" + random13dig() + "    type='text' value='"+tagContent+"''> ");
 
             }
             if ((String(event.target.id)).match(RegSp) == event.target.id) {
                 var noteContent = $(event.target).text();
-               $(event.target).replaceWith(" <input style='width: 5em;'  name='contentInput' class= '.contains input' id=inputContent" + random13dig() + "    type='text' value="+noteContent+"> ");
+               $(event.target).replaceWith(" <input style='width: 25em;'  name='contentInput' class= '.contains input' id=inputContent" + random13dig() + "    type='text' value='"+noteContent+"''> ");
             }
         } else {
          
@@ -230,6 +233,7 @@ $(document).ready(function() {
                     $('#' + inputId).replaceWith("<contains class='stickerPara' id=stickerpara" + random13dig() + "> " + inputContentText + "</contains> ");
                 }
                 if (dad.is('h2')) {
+                                                     console.log('inputContentText:',inputContentText);
                     $('#' + inputId).replaceWith("<contains class='tag' id=tag" + random13dig() + "> " + inputContentText + " </contains> ");
                 }
             }
