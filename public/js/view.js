@@ -288,7 +288,7 @@ $(document).ready(function() {
             }
         }
 
-
+                    
         if ((event.which == 13)) {
             if ((inputId != undefined)) {
                 if (inputContentText == '') {
@@ -306,9 +306,9 @@ $(document).ready(function() {
                 }
             } else {
                 for (var i = 0; i < aId.length; i++) {
-
-                    if ($('#' + aId).css('height') > '15em')
-                        document.getElementById(aId).innerHTML += " <hr /><input style='width: 25em;' name='contentInput' class= '.contains input' id=inputContent" + random13dig() + "    type='text' placeholder='Add notes..'> "
+            console.log(aId[i]);
+                    if ($('#' + aId[i]).css('height') > '15em')
+                        document.getElementById(aId[i]).innerHTML += " <hr /><input style='width: 25em;' name='contentInput' class= '.contains input' id=inputContent" + random13dig() + "    type='text' placeholder='Add notes..'> "
                 }
 
             }
