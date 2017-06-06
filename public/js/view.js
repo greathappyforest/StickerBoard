@@ -14,7 +14,6 @@ var colorChoices = [
     { 'choice': '#8cc63f' },
     { 'choice': '#13a89e' },
     { 'choice': '#46549e' },
-
     { 'choice': '#d3cee2' }
 ];
 
@@ -60,7 +59,7 @@ function addNewSticker() {
 
     $(".dashboardUl").append("<li><a id=stickerId" + random13dig() + " ><h2 id=h" + random13dig() + "><contains class='tag' id=tag" + random13dig() +
         ">tag1</contains> <contains class='tag' id=tag" + random13dig() + ">tag2</contains> </h2><hr color=#000000 /><contains class='stickerPara' id=stickerpara" + random13dig() +
-        ">some note1</contains><hr /><contains class='stickerPara' id=stickerpara" + random13dig() + ">some note2</contains><hr /> </a></li>");
+        ">some note1</contains><hr /><contains class='stickerPara' id=stickerpara" + random13dig() + ">some note2</contains><hr /></a></li>");
 }
 
 
@@ -70,7 +69,6 @@ function getStickerObj(sticktime) {
             return stickersData[i];
     }
 }
-
 
 
 
@@ -174,7 +172,6 @@ $(document).ready(function() {
             // console.log(event.target);
             // $('#'+$((String(allIds[i])).match(RegInput))[0])  -------obj
         for (var i = 0; i < allIds.length; i++) {
-
             if ($((String(allIds[i])).match(RegInput))[0] != undefined) {
                 inputId = $((String(allIds[i])).match(RegInput))[0];
             }
@@ -190,55 +187,62 @@ $(document).ready(function() {
             if ($((String(allIds[i])).match(RegSp))[0] != undefined) {
                 contentId.push($((String(allIds[i])).match(RegSp))[0]);
             }
-        }
 
+        }
         // console.log('inputId',inputId);
         // console.log('aId',aId);
         // console.log('H2Id',H2Id);
         // console.log('tagId',tagId);
         // console.log('contentId',contentId);
-
-        if (target.is('input')) {
-            return;
-        } else if ((target.is('a') || target.is('h2')) && (inputId == undefined)) {
-            if (target.css('height') > '15em') {
-                if (target.is('a')) {
-                    document.getElementById(event.target.id).innerHTML += " <hr /><input style='width: 25em;' name='contentInput' class= '.contains input' id=inputContent" + random13dig() + "    type='text' placeholder='Add notes..'> "
+        if (target.parents('ul.nav-list').length == 0) {
+            if (target.is('input')) {
+                return;
+            } else if ((target.is('a') || target.is('h2')) && (inputId == undefined)) {
+                if (target.css('height') > '15em') {
+                    if (target.is('a')) {
+                        document.getElementById(event.target.id).innerHTML += " <hr /><input style='width: 25em;' name='contentInput' class= '.contains input' id=inputContent" + random13dig() + "    type='text' placeholder='Add notes..'> "
+                    }
+                    if (target.is('h2')) {
+                        document.getElementById(event.target.id).innerHTML += " <input style='width: 5em;'  name='contentInput' class= '.contains input' id=inputContent" + random13dig() + "    type='text' placeholder='Add Tag..'value=> "
+                    }
                 }
-                if (target.is('h2')) {
-                    document.getElementById(event.target.id).innerHTML += " <input style='width: 5em;'  name='contentInput' class= '.contains input' id=inputContent" + random13dig() + "    type='text' placeholder='Add Tag..'value=> "
+            } else if ((target.is('contains')) && (inputId == undefined)) {
+                if ((String(event.target.id)).match(RegTag) == event.target.id) {
+
+
+                    var tagContent = $(event.target).text();
+                    //    console.log('tagContent:', tagContent);
+                    $(event.target).replaceWith(" <input style='width: 5em;'  name='contentInput' class= '.contains input' id=inputContent" + random13dig() + "    type='text' value='" + tagContent + "''> ");
+
                 }
-            }
-        } else if ((target.is('contains')) && (inputId == undefined)) {
-            if ((String(event.target.id)).match(RegTag) == event.target.id) {
-
-
-                var tagContent = $(event.target).text();
-                console.log('tagContent:', tagContent);
-                $(event.target).replaceWith(" <input style='width: 5em;'  name='contentInput' class= '.contains input' id=inputContent" + random13dig() + "    type='text' value='" + tagContent + "''> ");
-
-            }
-            if ((String(event.target.id)).match(RegSp) == event.target.id) {
-                var noteContent = $(event.target).text();
-                $(event.target).replaceWith(" <input style='width: 25em;'  name='contentInput' class= '.contains input' id=inputContent" + random13dig() + "    type='text' value='" + noteContent + "''> ");
-            }
-        } else {
-
-            if (inputContentText == '') {
-                $('#' + inputId).prev().remove();
-                $('#' + inputId).remove();
+                if ((String(event.target.id)).match(RegSp) == event.target.id) {
+                    var noteContent = $(event.target).text();
+                    $(event.target).replaceWith(" <input style='width: 25em;'  name='contentInput' class= '.contains input' id=inputContent" + random13dig() + "    type='text' value='" + noteContent + "''> ");
+                }
             } else {
                 var dad = $('#' + inputId).parent();
-                if (dad.is('a')) {
-                    $('#' + inputId).replaceWith("<contains class='stickerPara' id=stickerpara" + random13dig() + "> " + inputContentText + "</contains> ");
-                }
-                if (dad.is('h2')) {
-                    console.log('inputContentText:', inputContentText);
-                    $('#' + inputId).replaceWith("<contains class='tag' id=tag" + random13dig() + "> " + inputContentText + " </contains> ");
-                }
-            }
+                if (inputContentText == '') {
 
+                    if (dad.is('a')) {
+                        $('#' + inputId).prev().remove();
+                        $('#' + inputId).remove();
+                    }
+                    if (dad.is('h2')) {
+                        $('#' + inputId).remove();
+                    }
+                } else {
+                    if (dad.is('a')) {
+                        $('#' + inputId).replaceWith("<contains class='stickerPara' id=stickerpara" + random13dig() + "> " + inputContentText + "</contains> ");
+                    }
+                    if (dad.is('h2')) {
+                        //  console.log('inputContentText:', inputContentText);
+                        $('#' + inputId).replaceWith("<contains class='tag' id=tag" + random13dig() + "> " + inputContentText + " </contains> ");
+                    }
+                }
+
+            }
         }
+
     });
 });
 
@@ -288,12 +292,19 @@ $(document).ready(function() {
             }
         }
 
-                    
+
         if ((event.which == 13)) {
             if ((inputId != undefined)) {
+                var dad = $('#' + inputId).parent();
                 if (inputContentText == '') {
-                    $('#' + inputId).prev().remove();
-                    $('#' + inputId).remove();
+
+                    if (dad.is('a')) {
+                        $('#' + inputId).prev().remove();
+                        $('#' + inputId).remove();
+                    }
+                    if (dad.is('h2')) {
+                        $('#' + inputId).remove();
+                    }
                 } else {
                     var dad = $('#' + inputId).parent();
                     if (dad.is('a')) {
@@ -306,7 +317,7 @@ $(document).ready(function() {
                 }
             } else {
                 for (var i = 0; i < aId.length; i++) {
-            console.log(aId[i]);
+                    console.log(aId[i]);
                     if ($('#' + aId[i]).css('height') > '15em')
                         document.getElementById(aId[i]).innerHTML += " <hr /><input style='width: 25em;' name='contentInput' class= '.contains input' id=inputContent" + random13dig() + "    type='text' placeholder='Add notes..'> "
                 }
@@ -321,12 +332,11 @@ $(document).ready(function() {
 
         }
 
-
     });
 });
 
 
-var str2='';
+var str2 = '';
 $(document).keydown(function(e) {
     var inputId;
     var aId = [];
@@ -364,12 +374,12 @@ $(document).keydown(function(e) {
     if ((inputId != undefined)) {
         if (e.keyCode == 27) { // escape key maps to keycode `27`
             $('#' + inputId).prev().remove();
-           $('#' + inputId).remove();
+            $('#' + inputId).remove();
         }
 
         if (e.keyCode == 8) {
-        
-         $('#' + inputId).replaceWith(" <input style='width: 25em;'  name='contentInput' class= '.contains input' id=inputContent" + random13dig() + "    type='text' value='" + ($(":text").val()).slice(0, str.length-1) + "''> ");
+
+            $('#' + inputId).replaceWith(" <input style='width: 25em;'  name='contentInput' class= '.contains input' id=inputContent" + random13dig() + "    type='text' value='" + ($(":text").val()).slice(0, str.length - 1) + "''> ");
 
         }
     }
@@ -394,10 +404,10 @@ $(document).ready(function() {
         if ((String(event.target.id)).match(/#\w+/) == event.target.id) {
             //console.log ((String(event.target.id)).match(/^color#\w+/));
             for (var i = 0; i < allIds.length; i++) {
-                if ($((String(allIds[i])).match(RegPatStId))[0] != {} && $((String(allIds[i])).match(RegPatStId))[0] != undefined) {
-                    if (($('#' + $((String(allIds[i])).match(RegPatStId))[0]).css('height') > '15em')) {
+                if ($((String(allIds[i])).match(RegStId))[0] != {} && $((String(allIds[i])).match(RegStId))[0] != undefined) {
+                    if (($('#' + $((String(allIds[i])).match(RegStId))[0]).css('height') > '15em')) {
                         //   console.log( (event.target.id));
-                        ($('#' + $((String(allIds[i])).match(RegPatStId))[0])).css("background-color", event.target.id);
+                        ($('#' + $((String(allIds[i])).match(RegStId))[0])).css("background-color", event.target.id);
                     }
 
                 }
@@ -413,6 +423,21 @@ $(document).ready(function() {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 $(window).load(function() {
     $(".btn-nav").on("click tap", function() {
         $(".nav-container").toggleClass("showNav hideNav").removeClass("hidden");
@@ -424,5 +449,11 @@ $(window).load(function() {
     }
 
 
+});
 
+
+$(document).ready(function(){  
+    $(document).bind("contextmenu",function(e){   
+          return false;   
+    });
 });

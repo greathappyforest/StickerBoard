@@ -8,7 +8,7 @@
 
 
 
-<body>
+<body  style="background-image: url('bg.gif')!important">
 <%- include('includes/header') %>
          <% if (locals.errors) { %>
         <% errors.forEach(function(error){ %>
@@ -17,11 +17,11 @@
           <% } %>
 
 
-<nav class="st-container">
+<nav>
   <ul>
   <div class="floatleft">
-      <li ><a href="/">Sticker Board</a></li>
-      <li ><p>Hi, <%-locals.user%></p></li>
+      <li ><a style="font-size:120%;  color:#eee!important;"  href="/">Magistic Note</a></li>
+      <li ><p style=" color:#eee!important;">Hi, <%-locals.user%></p></li>
   </div>
   <div class="floatright">
       <li ><a href="/users/logout">Logout</a></li>
