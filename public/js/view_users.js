@@ -19,9 +19,6 @@ var colorChoices = [
 
 
 
-
-var stickersData = [];
-
 $(document).ready(function() {
 
     $(".dashboard").on("dblclick", function(event) {
@@ -46,20 +43,12 @@ function random13dig() {
 function addNewSticker() {
     var d = new Date();
     var timeNow = d.getTime();
-    stickersData.push({
-        'Tag': ['tag1', 'tag2'],
-        'content': ['Some note1', 'some note2'],
-        'length': '',
-        'wide': '',
-        'top': '',
-        'left': '',
-        'bgcolor': '',
-        'time': timeNow
-    });
 
-    $(".dashboardUl").append("<li><a id=stickerId" + random13dig() + " ><h2 id=h" + random13dig() + "><contains class='tag' id=tag" + random13dig() +
+    $(".dashboardUl").append("<li><a  id=stickerId" + random13dig() + " ><h2 id=h" + random13dig() + "><contains class='tag' id=tag" + random13dig() +
         ">tag1</contains> <contains class='tag' id=tag" + random13dig() + ">tag2</contains> </h2><hr color=#000000 /><contains class='stickerPara' id=stickerpara" + random13dig() +
-        ">some note1</contains><hr /><contains class='stickerPara' id=stickerpara" + random13dig() + ">some note2</contains><hr /></a></li>");
+        ">some note1</contains><hr /><contains class='stickerPara' id=stickerpara" + random13dig() + ">some note2</contains><hr />     <contains class='close'> </contains>    </a></li>");
+
+
 }
 
 
@@ -82,8 +71,8 @@ var stickerjson = [];
 var currobj = {};
 $(document).ready(function() {
     $(this).on('click', function(event) {
+
         // console.log(event.target);
-        // console.log(toggle);
         var target = $(event.target);
         var Regpat = /stickerId\d{13}/;
         //use reg express parsing and check stickerid
@@ -164,7 +153,6 @@ $(document).ready(function() {
         var tagId = [];
         var contentId = [];
 
-
         var inputContentText = ($(":text").val());
         var allIds = $.unique($('[id]').map(function() {
                 return this.id;
@@ -187,19 +175,97 @@ $(document).ready(function() {
             if ($((String(allIds[i])).match(RegSp))[0] != undefined) {
                 contentId.push($((String(allIds[i])).match(RegSp))[0]);
             }
-
         }
-        // console.log('inputId',inputId);
-        // console.log('aId',aId);
-        // console.log('H2Id',H2Id);
-        // console.log('tagId',tagId);
-        // console.log('contentId',contentId);
+
+//         // console.log('inputId',inputId);
+//         // console.log('aId',aId);
+//         // console.log('H2Id',H2Id);
+//         // console.log('tagId',tagId);
+//         // console.log('contentId',contentId);
+//         var tagobj=$($($('#'+aId).children())[0]).children();
+//        // console.log(       $($($($('#'+aId).children())[0]).children()[0]).text()             );
+//       //  console.log(       $( $($('#'+aId[0]).children()[0]).children()[1]).text()     );
+//       //  console.log(      tagobj.length             );
+
+// stickersData=[];
+//     //loop for each note
+//     for(var i=0; i<aId.length ;i++){
+//        //loop for tagobj
+//         TagData=[];
+//         contentData=[];
+
+//         //get each stickynote obj tag text info
+//          var tagobj=$($('#'+aId[i]).children()[0]).children();
+//          for(var j=0; j<tagobj.length; j++ ){
+//            TagData.push( $(tagobj[j]).text()   );
+//          }
+
+//          //get each stickynote obj content text info
+//          var noteContentObj= $($('#'+aId[i]).children())
+//          var contentobj= findNotecontentobj(noteContentObj);
+//          for(var k=0; k<contentobj.length; k++){
+//             contentData.push (   $(contentobj[k]).text()       );
+
+//          }   
+
+//          //position, top     
+//        $('#'+aId[i]).position().top;      
+
+//         // position,left
+//         $('#'+aId[i]).position().left;
+
+//         //bgcolor
+//        $('#'+aId[i]).css("background-color")       
+//          //  console.log(TagData);
+//          // console.log(contentData);
+
+//          stickersData.push({ 
+//          Tag: TagData,
+//         content: contentData,
+//         'top':  $('#'+aId[i]).position().top,
+//         'left': $('#'+aId[i]).position().left,
+//         'bgcolor': $('#'+aId[i]).css("background-color") 
+//         })
+         
+//      }
+
+//     console.log(stickersData);
+
+
+
+
+//         function findNotecontentobj(noteContentObj){
+//             var temp=[];
+//             for(var i=0; i<noteContentObj.length; i++){
+//                 if(  $(noteContentObj[i]).is('contains')  )
+//                     if(! $(noteContentObj[i]).is('.close')     )
+//                     temp.push(noteContentObj[i]);
+//             }
+//             return temp;
+//         }
+
+
+
+
+        //    console.log(event.target.id);
+        if (event.target.id == "addnote") {
+            addNewSticker();
+        }
+
+        if (target.is('.close')) {
+            target.parent().parent().remove()
+        }
+
+
+
+
         if (target.parents('ul.nav-list').length == 0) {
             if (target.is('input')) {
                 return;
             } else if ((target.is('a') || target.is('h2')) && (inputId == undefined)) {
                 if (target.css('height') > '15em') {
                     if (target.is('a')) {
+                        target.find(".close").toggle();
                         document.getElementById(event.target.id).innerHTML += " <hr /><input style='width: 25em;' name='contentInput' class= '.contains input' id=inputContent" + random13dig() + "    type='text' placeholder='Add notes..'> "
                     }
                     if (target.is('h2')) {
@@ -208,8 +274,6 @@ $(document).ready(function() {
                 }
             } else if ((target.is('contains')) && (inputId == undefined)) {
                 if ((String(event.target.id)).match(RegTag) == event.target.id) {
-
-
                     var tagContent = $(event.target).text();
                     //    console.log('tagContent:', tagContent);
                     $(event.target).replaceWith(" <input style='width: 5em;'  name='contentInput' class= '.contains input' id=inputContent" + random13dig() + "    type='text' value='" + tagContent + "''> ");
@@ -233,6 +297,9 @@ $(document).ready(function() {
                 } else {
                     if (dad.is('a')) {
                         $('#' + inputId).replaceWith("<contains class='stickerPara' id=stickerpara" + random13dig() + "> " + inputContentText + "</contains> ");
+
+            //            contentData.push(inputContentText);
+                  
                     }
                     if (dad.is('h2')) {
                         //  console.log('inputContentText:', inputContentText);
@@ -242,6 +309,9 @@ $(document).ready(function() {
 
             }
         }
+
+   //      noteObjData={'tag':'[]','content':contentData}
+   // console.log(noteObjData);
 
     });
 });
@@ -419,22 +489,119 @@ $(document).ready(function() {
 });
 
 
+//------------------------unload event------------------------------
+
+
+$(document).ready(function() {
+     $(window).unload(function() {
+
+
+var stickersData = [];
+var noteObjData={};
+var TagData=[];
+var contentData=[];
+
+       var aId = [];
+        var H2Id = [];
+        var tagId = [];
+        var contentId = [];
+
+        var inputContentText = ($(":text").val());
+        var allIds = $.unique($('[id]').map(function() {
+                return this.id;
+            }).get())
+            // console.log(event.target);
+            // $('#'+$((String(allIds[i])).match(RegInput))[0])  -------obj
+        for (var i = 0; i < allIds.length; i++) {
+            if ($((String(allIds[i])).match(RegInput))[0] != undefined) {
+                inputId = $((String(allIds[i])).match(RegInput))[0];
+            }
+            if ($((String(allIds[i])).match(RegStId))[0] != undefined) {
+                aId.push($((String(allIds[i])).match(RegStId))[0]);
+            }
+            if ($((String(allIds[i])).match(RegH2))[0] != undefined) {
+                H2Id.push($((String(allIds[i])).match(RegH2))[0]);
+            }
+            if ($((String(allIds[i])).match(RegTag))[0] != undefined) {
+                tagId.push($((String(allIds[i])).match(RegTag))[0]);
+            }
+            if ($((String(allIds[i])).match(RegSp))[0] != undefined) {
+                contentId.push($((String(allIds[i])).match(RegSp))[0]);
+            }
+        }
+
+         function findNotecontentobj(noteContentObj){
+            var temp=[];
+            for(var i=0; i<noteContentObj.length; i++){
+                if(  $(noteContentObj[i]).is('contains')  )
+                    if(! $(noteContentObj[i]).is('.close')     )
+                    temp.push(noteContentObj[i]);
+            }
+            return temp;
+        }
+
+
+
+
+        var tagobj=$($($('#'+aId).children())[0]).children();
+
+
+        stickersData=[];
+         //loop for each note
+         for(var i=0; i<aId.length ;i++){
+       //loop for tagobj
+        TagData=[];
+        contentData=[];
+
+        //get each stickynote obj tag text info
+         var tagobj=$($('#'+aId[i]).children()[0]).children();
+         for(var j=0; j<tagobj.length; j++ ){
+           TagData.push( $(tagobj[j]).text()   );
+         }
+
+         //get each stickynote obj content text info
+         var noteContentObj= $($('#'+aId[i]).children())
+         var contentobj= findNotecontentobj(noteContentObj);
+         for(var k=0; k<contentobj.length; k++){
+            contentData.push (   $(contentobj[k]).text()       );
+
+         }   
+
+         //position, top     
+       $('#'+aId[i]).position().top;      
+
+        // position,left
+        $('#'+aId[i]).position().left;
+
+        //bgcolor
+       $('#'+aId[i]).css("background-color")       
+         //  console.log(TagData);
+         // console.log(contentData);
+
+         stickersData.push({ 
+         Tag: TagData,
+        content: contentData,
+        'top':  $('#'+aId[i]).position().top,
+        'left': $('#'+aId[i]).position().left,
+        'bgcolor': $('#'+aId[i]).css("background-color") 
+        })
+         
+     }
+
+    console.log(stickersData);
+
+
+
+
+
+
+        alert("Goodbye!");
+    });
+});
+
+
+
 //-----------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -452,8 +619,11 @@ $(window).load(function() {
 });
 
 
-$(document).ready(function(){  
-    $(document).bind("contextmenu",function(e){   
-          return false;   
+$(document).ready(function() {
+    $(document).bind("contextmenu", function(e) {
+        return false;
     });
 });
+
+
+

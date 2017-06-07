@@ -7,9 +7,18 @@ var Account = require(path.resolve('models/account'));
 var mongoose = require('mongoose');
 var flash = require('connect-flash');
 
-
-
 router.use(flash());
+
+
+
+
+
+
+router.get('/', function(req, res) {
+    res.render('users');
+});
+
+
 
 // Register Page - GET
 router.get('/register', function(req, res) {
@@ -67,7 +76,7 @@ router.post('/register', function(req, res) {
         console.log('Register vaildation passed!');
         Account.register(new Account(newUser), req.body.password, function(err) {
             console.log('user registered!');
-            res.redirect('/');
+            res.redirect('/users/Login');
         });
     }
 
@@ -90,7 +99,7 @@ router.post('/login', function(req, res, next) {
             if (err) {
                 return next(err);
             }
-            return res.redirect('/');
+            return res.redirect('/users');
         });
     })(req, res, next);
 });

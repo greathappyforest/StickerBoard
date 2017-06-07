@@ -1,7 +1,12 @@
 
+   html { overflow-x:hidden !important; 
+
+}
+
 body {
    /* background-color: #6c7980;*/
     height:100%;
+ 
 }
 
 .reg-page,
@@ -179,6 +184,19 @@ button::-moz-focus-inner {
     -o-transition: all 1s ease;
     transition: all 1s ease;
 }
+
+
+
+.add{
+  color:#eee;
+    margin-top:8%; 
+    transform:scale(7);
+    margin-left: 95%;
+    z-index: 1;
+    position: absolute;
+}
+
+
 
 .btn-nav:focus {
     outline: none;
@@ -502,8 +520,8 @@ h1 {
   -o-transform: scale(1.25);
   position:relative;
   z-index:5;
-}
 
+}
 
 
 .dashboard input{
