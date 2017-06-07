@@ -4,14 +4,28 @@ var path = require('path');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var Account = require(path.resolve('models/account'));
+var usersData = require(path.resolve('models/usersData'));
 var mongoose = require('mongoose');
 var flash = require('connect-flash');
+
 
 router.use(flash());
 
 
 
 
+
+router.post('/',function(req,res){
+
+var stickersData=req.body.Data;
+
+console.log(stickersData)
+
+
+  usersData.create({'usersdata': stickersData});
+
+ res.render('users');
+});
 
 
 router.get('/', function(req, res) {

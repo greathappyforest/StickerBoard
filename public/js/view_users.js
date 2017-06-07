@@ -176,7 +176,10 @@ $(document).ready(function() {
                 contentId.push($((String(allIds[i])).match(RegSp))[0]);
             }
         }
-
+//---------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------
 //         // console.log('inputId',inputId);
 //         // console.log('aId',aId);
 //         // console.log('H2Id',H2Id);
@@ -229,8 +232,9 @@ $(document).ready(function() {
          
 //      }
 
-//     console.log(stickersData);
-
+//   // console.log(stickersData);
+//  //  console.log(stickersData);
+//  // console.log( JSON.stringify(stickersData)  );
 
 
 
@@ -243,8 +247,12 @@ $(document).ready(function() {
 //             }
 //             return temp;
 //         }
+// $.post("users", {Data:JSON.stringify(stickersData)});
 
-
+//--------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------
 
 
         //    console.log(event.target.id);
@@ -588,11 +596,20 @@ var contentData=[];
          
      }
 
-    console.log(stickersData);
+//------------------$.post("users", {Data:JSON.stringify(stickersData)});
+
+$.post("users", {Data:JSON.stringify(stickersData)});
 
 
 
+// window.addEventListener('unload', logData, false);
 
+// function logData() {
+//   var client = new XMLHttpRequest();
+//   client.open("POST", "/users", false); // third parameter indicates sync xhr
+//   client.setRequestHeader("Content-Type", "text/plain;charset=UTF-8");
+//   client.send(stickersData);
+// }
 
 
         alert("Goodbye!");

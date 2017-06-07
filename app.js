@@ -29,6 +29,7 @@ app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 
 // BodyParser
 app.use(bodyParser.json());
+app.use(bodyParser.text());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // Express Session Middleware
@@ -66,6 +67,8 @@ app.use(passport.session());
 
 // Configure passport-local to use account model for authentication
 var Account = require('./models/account');
+var usersData = require('./models/usersData');
+
 Account.createStrategy();
 passport.use(new LocalStrategy(Account.authenticate()));
 
