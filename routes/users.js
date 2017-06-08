@@ -13,25 +13,60 @@ router.use(flash());
 
 
 
-
+//user post----------------------
 
 router.post('/',function(req,res){
 
 var stickersData=req.body.Data;
+var arrSt =JSON.parse(stickersData);
 
-console.log(stickersData)
+var usersdata=[];
+for(var i=0; i<arrSt.length; i++){
+
+ arrSt[i].username=arrSt[i].username.replace(/[\r\n]/g, '');
+ arrSt[i].username=arrSt[i].username.replace(/(^\s*)|(\s*$)/g, "");
+
+  usersdata.push( {
+    'tag':arrSt[i].tag,
+    'content':arrSt[i].content,   
+    'top':arrSt[i].top,   
+    'left':arrSt[i].left,   
+    'bgcolor':arrSt[i].bgcolor});
+}
+
+   usersData.create({
+    'username':arrSt[0].username,
+    'usersdata':usersdata
+    });
 
 
-  usersData.create({'usersdata': stickersData});
 
  res.render('users');
 });
 
 
-router.get('/', function(req, res) {
+//user get---------------------------
+
+
+// router.get('/',  function(req, res) {
+//     res.render('users');
+// });
+
+
+router.get('/', ensureAuthenticated, function(req, res) {
     res.render('users');
 });
 
+
+function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect('/users/login');
+}
+
+
+// ---------------------------------------------
 
 
 // Register Page - GET
@@ -122,7 +157,7 @@ router.post('/login', function(req, res, next) {
 router.get('/logout', function(req, res) {
     req.logout();
     req.flash('success', 'You have logged out');
-    res.redirect('/users/login');
+    res.redirect('/');
 });
 
 

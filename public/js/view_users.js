@@ -587,29 +587,28 @@ var contentData=[];
          // console.log(contentData);
 
          stickersData.push({ 
-         Tag: TagData,
+        'username': $(localuser).text(),
+         tag: TagData,
         content: contentData,
         'top':  $('#'+aId[i]).position().top,
         'left': $('#'+aId[i]).position().left,
         'bgcolor': $('#'+aId[i]).css("background-color") 
         })
-         
+        
      }
 
 //------------------$.post("users", {Data:JSON.stringify(stickersData)});
 
-$.post("users", {Data:JSON.stringify(stickersData)});
+
+ $.ajax({
+    type: 'POST',
+    async: false,
+    url: 'users',
+    data: {Data:JSON.stringify(stickersData)}
+});
 
 
 
-// window.addEventListener('unload', logData, false);
-
-// function logData() {
-//   var client = new XMLHttpRequest();
-//   client.open("POST", "/users", false); // third parameter indicates sync xhr
-//   client.setRequestHeader("Content-Type", "text/plain;charset=UTF-8");
-//   client.send(stickersData);
-// }
 
 
         alert("Goodbye!");

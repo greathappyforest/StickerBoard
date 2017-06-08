@@ -23,7 +23,9 @@
   <ul>
   <div class="floatleft">
       <li ><a style="font-size:120%;  color:#eee!important;"  href="/">Magistic Note</a></li>
-      <li ><p style=" color:#eee!important;">Hi, <%-locals.user%></p></li>
+
+      <li ><p style=" color:#eee!important;">Hi, <contains id=localuser> <%-locals.user.username%>    
+      </contains></p></li>
   </div>
   <div class="floatright">
       <li ><a href="/users/logout">Logout</a></li>
