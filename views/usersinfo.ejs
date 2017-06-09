@@ -1,0 +1,7 @@
+<% usersdata.forEach(function(userdata){ %> 
+<li><a  id="<%="stickerId"+random13dig%>" ><h2 id="<%="h"+random13dig%>"> <contains class='tag' id="<%="tag"+random13dig%>"> <%= userdata.tag %>   </contains></h2><hr color=#000000 /><contains class='stickerPara' id="<%="stickerpara"+random13dig%>">   <%= userdata.content %> </contains>  <contains class='close'> </contains>    </a></li> 
+<% })%>
+
+<% if(username!=undefined){ %> 
+<%- include('usesinfo') %>
+<% }%>

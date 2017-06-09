@@ -607,6 +607,14 @@ var contentData=[];
     data: {Data:JSON.stringify(stickersData)}
 });
 
+  $.ajax({
+    type: 'POST',
+    async: false,
+    url: 'users/newusers',
+    data: {Data:JSON.stringify(stickersData)}
+});
+
+
 
 });
 });
