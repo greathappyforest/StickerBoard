@@ -57,6 +57,23 @@
  <ul class="dashboardUl">
  <!-- add sticker here-->
 
+<%var random13dig=((Math.floor(Math.random() * (9999999999999 - 1000000000000 + 1)) + 1000000000000))%>
+
+
+<!-- <% usersdata.forEach(function(userdata){ %> <li> <%= userdata.tag %></li> <% })%> -->
+
+
+<!-- <li><%="stickerId"+random13dig%></li> -->
+<!-- <li><a  id="<%="stickerId"+random13dig%>" ><h2 id="<%="h"+random13dig%>"> <contains class='tag' id="<%="tag"+random13dig%>">tag1</contains></h2><hr color=#000000 /><contains class='stickerPara' id="<%="stickerpara"+random13dig%>">some note1</contains>  <contains class='close'> </contains>    </a></li>  -->
+
+
+<% usersdata.forEach(function(userdata){ %> 
+<li><a  id="<%="stickerId"+random13dig%>" ><h2 id="<%="h"+random13dig%>"> <contains class='tag' id="<%="tag"+random13dig%>"> <%= userdata.tag %>   </contains></h2><hr color=#000000 /><contains class='stickerPara' id="<%="stickerpara"+random13dig%>">   <%= userdata.content %> </contains>  <contains class='close'> </contains>    </a></li> 
+<% })%>
+
+
+
+
   </ul>
   </div>
 </div>

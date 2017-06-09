@@ -15,46 +15,63 @@ router.use(flash());
 
 //user post----------------------
 
-router.post('/',function(req,res){
+router.post('/', function(req, res) {
 
-var stickersData=req.body.Data;
-var arrSt =JSON.parse(stickersData);
+    var stickersData = req.body.Data;
+    var arrSt = JSON.parse(stickersData);
 
-var usersdata=[];
-for(var i=0; i<arrSt.length; i++){
+    var usersdata = [];
+    for (var i = 0; i < arrSt.length; i++) {
 
- arrSt[i].username=arrSt[i].username.replace(/[\r\n]/g, '');
- arrSt[i].username=arrSt[i].username.replace(/(^\s*)|(\s*$)/g, "");
+        arrSt[i].username = arrSt[i].username.replace(/[\r\n]/g, '');
+        arrSt[i].username = arrSt[i].username.replace(/(^\s*)|(\s*$)/g, "");
 
-  usersdata.push( {
-    'tag':arrSt[i].tag,
-    'content':arrSt[i].content,   
-    'top':arrSt[i].top,   
-    'left':arrSt[i].left,   
-    'bgcolor':arrSt[i].bgcolor});
-}
+        usersdata.push({
+            'tag': arrSt[i].tag,
+            'content': arrSt[i].content,
+            'top': arrSt[i].top,
+            'left': arrSt[i].left,
+            'bgcolor': arrSt[i].bgcolor
+        });
+    }
 
    usersData.create({
     'username':arrSt[0].username,
     'usersdata':usersdata
     });
 
-
-
- res.render('users');
+    res.render('users');
 });
 
 
 //user get---------------------------
 
 
-// router.get('/',  function(req, res) {
-//     res.render('users');
-// });
-
 
 router.get('/', ensureAuthenticated, function(req, res) {
-    res.render('users');
+    var loginuser = res.locals.user.username;
+
+    //  console.log(usersData.find({ 'username':'aaa'         }))
+    usersData.find({ 'username': loginuser }, function(err, doc) {
+
+        usersData.remove({'username': loginuser }, function (err) {
+          if (err) return handleError(err);
+    });
+
+    res.render('users', { usersdata: doc[0].usersdata });
+        //content array    doc[0].usersdata
+        // if (doc[0] != undefined) {
+        //     console.log("exsiting user, retrieve data from database")
+
+        //     // console.log(doc[0].usersdata);
+        //     res.render('users', { usersdata: doc[0].usersdata });
+
+        // } else {
+        //     //     console.log(doc[0].usersdata);
+        //     console.log("new user, no data in the database");
+        //     res.render('users', { usersdata: doc[0].usersdata });
+        // }
+    });
 });
 
 
@@ -66,7 +83,10 @@ function ensureAuthenticated(req, res, next) {
 }
 
 
+
+
 // ---------------------------------------------
+
 
 
 // Register Page - GET

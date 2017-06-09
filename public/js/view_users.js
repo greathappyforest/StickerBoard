@@ -608,11 +608,7 @@ var contentData=[];
 });
 
 
-
-
-
-        alert("Goodbye!");
-    });
+});
 });
 
 
@@ -626,10 +622,19 @@ $(window).load(function() {
         $(".nav-container").toggleClass("showNav hideNav").removeClass("hidden");
         $(this).toggleClass("animated");
     });
-    addNewSticker();
+   // addNewSticker();
     for (var i = 0; i < colorChoices.length; i++) {
         $(".nav-list").append("<li class='list-item'  style='background-color:" + colorChoices[i].choice + "'><a id=" + colorChoices[i].choice + "></a></li>");
     }
+
+
+  // $(".dashboardUl").append("<li><a  id=stickerId" + random13dig() + " ><h2 id=h" + random13dig() + "><contains class='tag' id=tag" + random13dig() +
+  //       ">tag1</contains> <contains class='tag' id=tag" + random13dig() + ">tag2</contains> </h2><hr color=#000000 /><contains class='stickerPara' id=stickerpara" + random13dig() +
+  //       ">some note1</contains><hr /><contains class='stickerPara' id=stickerpara" + random13dig() + ">some note2</contains><hr />     <contains class='close'> </contains>    </a></li>");
+
+
+
+  //$(".dashboardUl").append("<% usersdata.forEach(function(userdata){ %> <li> <%= userdata.tag %></li> <% })%>");
 
 
 });
